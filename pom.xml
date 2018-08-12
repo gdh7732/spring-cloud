@@ -20,10 +20,12 @@
         <module>eureka-server-master</module>
         <module>eureka-server-slave</module>
         <module>common</module>
+        <module>provider-service</module>
     </modules>
 
     <properties>
         <spring.cloud.version>Dalston.SR1</spring.cloud.version>
+        <common.version>0.0.1-SNAPSHOT</common.version>
     </properties>
 
     <dependencies>
@@ -43,6 +45,13 @@
                 <version>${spring.cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <!--础模块-->
+            <dependency>
+                <groupId>com.ocean</groupId>
+                <artifactId>common</artifactId>
+                <version>${common.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
