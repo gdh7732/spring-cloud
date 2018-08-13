@@ -1,5 +1,6 @@
 package com.ocean.controller;
 
+import com.ocean.api.ProviderClient;
 import com.ocean.common.ControllerExecutor;
 import com.ocean.common.ResponseResult;
 import com.ocean.common.ServiceException;
@@ -8,9 +9,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+
 @RestController
-@RequestMapping("provider")
-public class ProviderController {
+@RequestMapping("customer")
+public class CustomerController {
+
+    @Resource
+    private ProviderClient providerClient;
 
     @GetMapping("queryInfo/{message}")
     public ResponseResult<String> queryInfo(@PathVariable("message") String message) {
@@ -21,7 +27,7 @@ public class ProviderController {
 
             @Override
             public String executeService(String... param) throws ServiceException {
-                return param[0];
+                return providerClient.getMessage(param[0]);
             }
         }.execute(message);
     }
