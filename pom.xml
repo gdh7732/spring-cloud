@@ -21,6 +21,7 @@
         <module>eureka-server-slave</module>
         <module>common</module>
         <module>provider-service</module>
+        <module>eureka-customer</module>
     </modules>
 
     <properties>
