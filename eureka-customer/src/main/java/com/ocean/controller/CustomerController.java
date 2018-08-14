@@ -1,7 +1,7 @@
 package com.ocean.controller;
 
 import com.ocean.api.ProviderClient;
-import com.ocean.common.ControllerExecutor;
+import com.ocean.common.AbstractControllerExecutor;
 import com.ocean.common.ResponseResult;
 import com.ocean.common.ServiceException;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+/**
+ * 消费案例
+ *
+ * @author guodahai
+ */
 @RestController
 @RequestMapping("customer")
 public class CustomerController {
@@ -20,14 +25,14 @@ public class CustomerController {
 
     @GetMapping("queryInfo/{message}")
     public ResponseResult<String> queryInfo(@PathVariable("message") String message) {
-        return new ControllerExecutor<String, String>(message) {
+        return new AbstractControllerExecutor<String, String>(message) {
             @Override
             public void checkParam() throws ServiceException {
             }
 
             @Override
-            public String executeService(String... param) throws ServiceException {
-                return providerClient.getMessage(param[0]);
+            public String executeService() throws ServiceException {
+                return providerClient.getMessage(message);
             }
         }.execute(message);
     }

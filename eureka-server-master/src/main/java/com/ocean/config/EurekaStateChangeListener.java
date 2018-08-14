@@ -5,6 +5,11 @@ import org.springframework.cloud.netflix.eureka.server.event.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 
+/**
+ * Eureka监听器
+ *
+ * @author guodahai
+ */
 @Configuration
 public class EurekaStateChangeListener {
 
