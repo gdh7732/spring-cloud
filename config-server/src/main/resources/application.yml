@@ -1,0 +1,11 @@
+server:
+  port: 8011
+
+spring:
+  application:
+    name: config-sercer
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/gdh7732/config-server-repo.git
