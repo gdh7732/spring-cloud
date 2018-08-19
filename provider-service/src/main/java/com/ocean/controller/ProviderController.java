@@ -19,7 +19,7 @@ public class ProviderController {
 
     @GetMapping("queryInfo/{message}")
     public ResponseResult<String> queryInfo(@PathVariable("message") String message) {
-        return new AbstractControllerExecutor<String, String>(message) {
+        return new AbstractControllerExecutor<String>() {
             @Override
             public void checkParam() throws ServiceException {
             }

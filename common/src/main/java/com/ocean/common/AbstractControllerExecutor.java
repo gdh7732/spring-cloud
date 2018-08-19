@@ -6,13 +6,7 @@ package com.ocean.common;
  * @author guodahai
  * @version 2018/4/17 上午11:08
  */
-public abstract class AbstractControllerExecutor<R, T> {
-
-    private T[] param;
-
-    public AbstractControllerExecutor(T... param) {
-        this.param = param;
-    }
+public abstract class AbstractControllerExecutor<R> {
 
     /**
      * 参数校验
@@ -29,7 +23,7 @@ public abstract class AbstractControllerExecutor<R, T> {
      */
     public abstract R executeService() throws ServiceException;
 
-    public ResponseResult<R> execute(T... param) throws ServiceException {
+    public ResponseResult<R> execute(Object... param) throws ServiceException {
         ResponseResult<R> result = new ResponseResult<R>();
         try {
             checkParam();
@@ -46,13 +40,5 @@ public abstract class AbstractControllerExecutor<R, T> {
             result.setErrorMessage(e.getErrorMsg());
         }
         return result;
-    }
-
-    public T[] getParam() {
-        return param;
-    }
-
-    public void setParam(T[] param) {
-        this.param = param;
     }
 }

@@ -2,8 +2,10 @@ package com.ocean.controller;
 
 import com.ocean.api.ProviderClient;
 import com.ocean.common.AbstractControllerExecutor;
+import com.ocean.common.ErrorCodeEnum;
 import com.ocean.common.ResponseResult;
 import com.ocean.common.ServiceException;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,9 +27,12 @@ public class CustomerController {
 
     @GetMapping("queryInfo/{message}")
     public ResponseResult<String> queryInfo(@PathVariable("message") String message) {
-        return new AbstractControllerExecutor<String, String>(message) {
+        return new AbstractControllerExecutor<String>() {
             @Override
             public void checkParam() throws ServiceException {
+                if (StringUtils.isEmpty(message)) {
+                    throw new ServiceException(ErrorCodeEnum.P01);
+                }
             }
 
             @Override
