@@ -1,8 +1,0 @@
-server:
-  port: 8752
-eureka:
-  instance:
-    hostname: slave
-  client:
-    serviceUrl:
-      defaultZone: http://root:root@master:8751/eureka/
