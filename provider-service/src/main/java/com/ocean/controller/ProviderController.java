@@ -26,6 +26,11 @@ public class ProviderController {
 
             @Override
             public String executeService() throws ServiceException {
+                try {
+                    Thread.sleep(5000L);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 return message;
             }
         }.execute(message);

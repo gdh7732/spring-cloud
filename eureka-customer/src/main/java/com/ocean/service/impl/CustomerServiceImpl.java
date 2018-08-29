@@ -1,12 +1,11 @@
 package com.ocean.service.impl;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.ocean.api.ProviderClient;
 import com.ocean.service.CustomerService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * @author guodahai
@@ -30,7 +29,7 @@ public class CustomerServiceImpl implements CustomerService {
         return providerClient.getMessage(message);
     }
 
-    public String fallback() {
-        return "fallback";
+    public String fallback(String message) {
+        return "fallback" + message;
     }
 }
