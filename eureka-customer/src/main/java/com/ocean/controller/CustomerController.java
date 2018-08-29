@@ -5,6 +5,8 @@ import com.ocean.common.AbstractControllerExecutor;
 import com.ocean.common.ErrorCodeEnum;
 import com.ocean.common.ResponseResult;
 import com.ocean.common.ServiceException;
+import com.ocean.service.CustomerService;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +25,7 @@ import javax.annotation.Resource;
 public class CustomerController {
 
     @Resource
-    private ProviderClient providerClient;
+    private CustomerService customerService;
 
     @GetMapping("queryInfo/{message}")
     public ResponseResult<String> queryInfo(@PathVariable("message") String message) {
@@ -37,7 +39,7 @@ public class CustomerController {
 
             @Override
             public String executeService() throws ServiceException {
-                return providerClient.getMessage(message);
+                return customerService.getMessage(message);
             }
         }.execute(message);
     }

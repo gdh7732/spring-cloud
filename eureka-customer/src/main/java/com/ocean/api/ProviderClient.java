@@ -18,6 +18,7 @@ public interface ProviderClient {
      * @param message
      * @return
      */
+
     @GetMapping(value = "queryInfo/{message}")
     String getMessage(@PathVariable("message") String message);
 }
