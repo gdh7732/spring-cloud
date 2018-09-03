@@ -33,6 +33,7 @@
         <spring.cloud.version>Dalston.SR1</spring.cloud.version>
         <common.version>0.0.1-SNAPSHOT</common.version>
         <maven-plugin-version>3.3.9</maven-plugin-version>
+        <swagger-ui-version>1.7.0.RELEASE</swagger-ui-version>
     </properties>
 
     <dependencies>
@@ -45,6 +46,7 @@
 
     <dependencyManagement>
         <dependencies>
+
             <!-- Spring Cloud -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
@@ -60,6 +62,14 @@
                 <artifactId>common</artifactId>
                 <version>${common.version}</version>
             </dependency>
+
+            <!--swagger-ui-->
+            <dependency>
+                <groupId>com.spring4all</groupId>
+                <artifactId>swagger-spring-boot-starter</artifactId>
+                <version>${swagger-ui-version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
