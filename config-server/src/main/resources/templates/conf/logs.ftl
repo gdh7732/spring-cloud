@@ -19,14 +19,14 @@
             <div class="box-body">
               <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
               	<div class="row"  style="margin-bottom:10px;margin-left:2px;font-size:14px;font-weight:bold;">
-              	            所属环境：<#if conf.env=='test'>线下测试环境</#if>
-              	           <#if conf.env=='dev'>程序开发环境</#if>
-              	           <#if conf.env=='online'>线上测试环境</#if>
-              	           <#if conf.env=='prod'>程序生产环境</#if>
+              	            所属环境：<#if config.env=='test'>线下测试环境</#if>
+              	           <#if config.env=='dev'>程序开发环境</#if>
+              	           <#if config.env=='online'>线上测试环境</#if>
+              	           <#if config.env=='prod'>程序生产环境</#if>
               	           &nbsp;&nbsp;&nbsp;&nbsp;
-              		系统名称：${conf.systemName!} &nbsp;&nbsp;&nbsp;&nbsp;
-              		配置文件名称：${conf.confFileName!}&nbsp;&nbsp;&nbsp;&nbsp;
-              		配置Key：${conf.key!}
+              		系统名称：${config.systemName!} &nbsp;&nbsp;&nbsp;&nbsp;
+              		配置文件名称：${config.confFileName!}&nbsp;&nbsp;&nbsp;&nbsp;
+              		配置Key：${config.key!}
               	</div>
               	<div class="row">
               	<div class="col-sm-12">

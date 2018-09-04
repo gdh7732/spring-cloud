@@ -31,9 +31,9 @@
 			              		<div id="example1_filter" class="dataTables_filter">
 			              			<input name="page" id="page" type="hidden" value="1"/>
 			              			<input name="env"  type="hidden" value="${env!}"/>
-			              			系统名称：<input name="systemName"  type="text" value="${conf.systemName!}" class="form-control"/>&nbsp;
-			              			配置文件名称：<input name="confFileName" type="text" value="${conf.confFileName!}" class="form-control" />&nbsp;
-			              			配置Key：<input name="key" type="text" value="${conf.key!}" class="form-control"/>&nbsp;
+			              			系统名称：<input name="systemName"  type="text" value="${config.systemName!}" class="form-control"/>&nbsp;
+			              			配置文件名称：<input name="confFileName" type="text" value="${config.confFileName!}" class="form-control" />&nbsp;
+			              			配置Key：<input name="key" type="text" value="${config.key!}" class="form-control"/>&nbsp;
 			              			<button type="submit" class="btn btn-primary" id="queryBtn">查询</button>
 			              		</div>
 		              		</div>
@@ -194,7 +194,7 @@
 		}
 		var id = node.attr("data-id");
 		$.ajax({
-		    url:"../conf/update",
+		    url:"../config/update",
 	        method:'POST',
 			data:{"value":value,"id":id, "desc":desc},
 			success:function () {
@@ -216,7 +216,7 @@
 		var id = node.attr("data-id");
 		layer.confirm("确认删除吗？请确认代码中的配置key已删除", function(){
 			$.ajax({
-			    url:"../conf/remove",
+			    url:"../config/remove",
 		        method:'POST',
 				data:{"id":id},
 				success:function () {
@@ -290,7 +290,7 @@
 			datas.push({"node":$(o).val(),"id":confId});
 		});
 		$.ajax({
-		    url:"../conf/push",
+		    url:"../config/push",
 	        method:'POST',
 	        contentType: "application/json",  
             dataType: "json", 
@@ -353,7 +353,7 @@
 			datas.push({"node":$(o).val(),"id":confId,value:value, desc:desc});
 		});
 		$.ajax({
-		    url:"../conf/update",
+		    url:"../config/update",
 	        method:'POST',
 			contentType: "application/json",  
             dataType: "json", 
