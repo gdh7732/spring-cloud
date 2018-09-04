@@ -27,6 +27,7 @@
         <module>config-client</module>
         <module>hystrix-dashboard</module>
         <module>api-gateway</module>
+        <module>cloud-stream</module>
     </modules>
 
     <properties>
@@ -37,11 +38,18 @@
     </properties>
 
     <dependencies>
-        <!-- eureka -->
+        <!--test-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!--eureka -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-eureka-server</artifactId>
         </dependency>
+
     </dependencies>
 
     <dependencyManagement>
