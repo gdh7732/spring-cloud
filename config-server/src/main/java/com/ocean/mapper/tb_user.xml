@@ -27,11 +27,10 @@
     </insert>
 
     <!--校验用户名-->
-    <select id="exists" resultType="java.lang.Integer">
+    <select id="exists" parameterType="string" resultType="java.lang.Integer">
         SELECT count(*)
         FROM tb_user
         WHERE username = #{username, jdbcType=VARCHAR}
     </select>
-
 
 </mapper>
