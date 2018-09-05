@@ -1,30 +1,36 @@
 package com.ocean.service.impl;
 
-import com.ocean.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ocean.domain.User;
-import com.ocean.repository.UserRepository;
+import com.ocean.mapper.UserMapper;
+import com.ocean.service.UserService;
 
+/**
+ * 用户Service
+ *
+ * @author gupdahai
+ */
 @Service
 public class UserServiceImpl implements UserService {
+
     @Autowired
-    private UserRepository userRepository;
+    private UserMapper userMapper;
 
     @Override
-    public User getUser(String username, String pass) {
-        return userRepository.getUser(username, pass);
+    public User queryUser(String username, String password) {
+        return userMapper.queryUser(username, password);
     }
 
     @Override
-    public void save(User user) {
-        userRepository.save(user);
+    public void saveUser(User user) {
+        userMapper.saveUser(user);
     }
 
     @Override
     public boolean exists(String username) {
-        return userRepository.exists(username);
+        return userMapper.exists(username);
     }
 
 }

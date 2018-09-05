@@ -28,7 +28,7 @@ public class UserController {
 	
 	@PostMapping("/user/login")
 	public Object login(String username, String pass, Map<String, String> model, HttpServletRequest request) {
-		User user = userService.getUser(username, pass);
+		User user = userService.queryUser(username, pass);
 		if (user == null) {
 			model.put("msg", "账号或者密码错误");
 			return "user/login"; 

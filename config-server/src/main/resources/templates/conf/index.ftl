@@ -216,7 +216,7 @@
 		var id = node.attr("data-id");
 		layer.confirm("确认删除吗？请确认代码中的配置key已删除", function(){
 			$.ajax({
-			    url:"../config/remove",
+			    url:"../config/removeConfig",
 		        method:'POST',
 				data:{"id":id},
 				success:function () {

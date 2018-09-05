@@ -10,8 +10,9 @@ import com.ocean.model.NodeInfo;
 import com.ocean.common.Constant;
 import com.ocean.common.EnvConstants;
 import com.ocean.util.CommonUtil;
-import com.ocean.service.ConfService;
+import com.ocean.service.ConfigService;
 import com.ocean.service.UpdateLogService;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -32,10 +34,10 @@ import java.util.Map;
  * @author yinjihuan
  */
 @Controller
-public class ConfController {
+public class ConfigController {
 
     @Autowired
-    private ConfService confService;
+    private ConfigService configService;
 
     @Autowired
     private UpdateLogService updateLogService;
@@ -43,56 +45,52 @@ public class ConfController {
     /**
      * 配置列表页面
      *
-     * @param conf
+     * @param config
      * @param model
      * @return
      * @author yinjihuan
      */
     @GetMapping("/")
-    public Object index(ConfigModel conf, Map<String, Object> model, HttpServletRequest request) {
+    public Object index(ConfigModel config, Map<String, Object> model, HttpServletRequest request) {
         List<String> envs = LoginUserInfoUtils.getLoginUserEvns(request);
-        if (StringUtils.isBlank(conf.getEnv())) {
+        if (StringUtils.isBlank(config.getEnv())) {
             if (envs.contains(EnvConstants.DEV)) {
-                conf.setEnv(EnvConstants.DEV);
+                config.setEnv(EnvConstants.DEV);
             } else if (envs.contains(EnvConstants.TEST)) {
-                conf.setEnv(EnvConstants.TEST);
+                config.setEnv(EnvConstants.TEST);
             } else if (envs.contains(EnvConstants.ONLINE)) {
-                conf.setEnv(EnvConstants.ONLINE);
+                config.setEnv(EnvConstants.ONLINE);
             } else if (envs.contains(EnvConstants.PROD)) {
-                conf.setEnv(EnvConstants.PROD);
+                config.setEnv(EnvConstants.PROD);
             }
         }
 
-        if (envs.contains(conf.getEnv())) {
-            if (conf.getPage() == 0) conf.setPage(1);
-            List<Config> list = confService.listForPage(conf.getEnv(), conf.getSystemName(),
-                    conf.getConfFileName(), conf.getKey(), conf.getPage(), 20);
+        if (envs.contains(config.getEnv())) {
+            if (config.getPage() == 0) config.setPage(1);
+            List<Config> list = configService.queryConfigByPage(config, config.getPage(), 20);
             List<ConfigModel> results = Lists.newArrayList();
             for (Config c : list) {
                 ConfigModel cm = new ConfigModel();
                 BeanUtils.copyProperties(c, cm);
-                cm.setNodes(confService.getNodes(c.getEnv(), c.getSystemName(), c.getConfFileName()));
+                cm.setNodes(configService.getNodes(c.getEnv(), c.getSystemName(), c.getConfFileName()));
                 results.add(cm);
             }
             model.put("confList", results);
-            model.put("env", conf.getEnv());
-            model.put("conf", conf);
+            model.put("env", config.getEnv());
+            model.put("config", config);
             model.put("msg", "");
         } else {
             model.put("msg", "无操作权限");
             model.put("env", "");
-            model.put("conf", new Config());
+            model.put("config", new Config());
         }
 
-        return "conf/index";
+        return "config/index";
     }
 
     /**
      * 修改配置
      *
-     * @param id
-     * @param value
-     * @param desc
      * @return
      * @author yinjihuan
      */
@@ -102,11 +100,11 @@ public class ConfController {
         if (nodes != null) {
             for (NodeInfo node : nodes) {
                 Object oldValue;
-                Config config = confService.get(node.getId());
+                Config config = configService.queryConfig(node.getId());
                 oldValue = config.getValue();
                 config.setValue(node.getValue());
                 config.setModifyDate(new Date());
-                confService.save(config);
+                configService.saveConfig(config);
 
                 //添加修改日志
                 UpdateLog log = UpdateLog.builder().updateObjId(node.getId())
@@ -115,13 +113,13 @@ public class ConfController {
                         .newValue(node.getValue())
                         .username(request.getSession().getAttribute("login_user_name").toString())
                         .updateDesc(node.getDesc()).build();
-                updateLogService.save(log);
+                updateLogService.saveUpdateLog(log);
                 // 值是根据推送节点传来的，只需要修改一次即可，推送就根据节点数量来
                 break;
             }
 
             for (NodeInfo node : nodes) {
-                Config config = confService.get(node.getId());
+                Config config = configService.queryConfig(node.getId());
                 //修改zk中的节点的值，告诉客户端值有修改
                 List<String> clients = CommonUtil.getZkClient().getClientServers(config.getEnv(), config.getSystemName());
                 for (String client : clients) {
@@ -147,7 +145,7 @@ public class ConfController {
     @PostMapping("/conf/remove")
     @ResponseBody
     public Object remove(String id) {
-        confService.remove(id);
+        configService.removeConfig(id);
         return "success";
     }
 
@@ -162,7 +160,7 @@ public class ConfController {
     public Object pushConf(@RequestBody List<NodeInfo> nodes) {
         if (nodes != null) {
             for (NodeInfo node : nodes) {
-                Config config = confService.get(node.getId());
+                Config config = configService.queryConfig(node.getId());
                 //修改zk中的节点的值，告诉客户端值有修改
                 List<String> clients = CommonUtil.getZkClient().getClientServers(config.getEnv(), config.getSystemName());
                 for (String client : clients) {

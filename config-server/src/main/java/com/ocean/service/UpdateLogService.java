@@ -4,10 +4,26 @@ import java.util.List;
 
 import com.ocean.domain.UpdateLog;
 
+/**
+ * 操作记录Service
+ *
+ * @author guodahai
+ */
 public interface UpdateLogService {
 
-    List<UpdateLog> list(String updateObjId);
+    /**
+     * 查询更新记录
+     *
+     * @param updateObjId
+     * @return
+     */
+    List<UpdateLog> queryUpdateLogList(String updateObjId);
 
-    void save(UpdateLog log);
+    /**
+     * 保存更新记录
+     *
+     * @param updateLog
+     */
+    void saveUpdateLog(UpdateLog updateLog);
 
 }
