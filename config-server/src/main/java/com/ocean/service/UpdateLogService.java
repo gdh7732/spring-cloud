@@ -17,7 +17,7 @@ public interface UpdateLogService {
      * @param updateObjId
      * @return
      */
-    List<UpdateLog> queryUpdateLogList(String updateObjId);
+    List<UpdateLog> queryUpdateLogList(Integer updateObjId);
 
     /**
      * 保存更新记录

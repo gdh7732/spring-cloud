@@ -24,14 +24,14 @@ public interface ConfigService {
      * @param id
      * @return
      */
-    Config queryConfig(String id);
+    Config queryConfig(Integer id);
 
     /**
      * 移除配置信息
      *
      * @param id
      */
-    void removeConfig(String id);
+    void removeConfig(Integer id);
 
     /**
      * 动态查询配置信息

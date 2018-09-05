@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ocean.mapper.ConfigMapper">
+
+    <resultMap id="result" type="com.ocean.domain.Config">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="env" property="env" jdbcType="VARCHAR"/>
+        <result column="system_name" property="systemName" jdbcType="VARCHAR"/>
+        <result column="conf_file_name" property="confFileName" jdbcType="VARCHAR"/>
+        <result column="key" property="key" jdbcType="VARCHAR"/>
+        <result column="value" property="value" jdbcType="VARCHAR"/>
+        <result column="desc" property="desc" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP"/>
+        <result column="gmt_modify" property="gmtModify" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="baseSelectSql">
+        id, env, system_name, conf_file_name, key, value, desc, status, gmt_create, gmt_modify
+    </sql>
+
+    <!--查询更新记录-->
+    <select id="queryConfig" resultMap="result">
+        SELECT
+        <include refid="baseSelectSql"/>
+        FROM tb_config WHERE id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <!--移除配置信息-->
+    <update id="removeConfig" parameterType="int">
+        UPDATE tb_config
+        SET status = 1
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <!--动态查询配置信息-->
+    <select id="queryConfigList" resultMap="result">
+        SELECT
+        <include refid="baseSelectSql"/>
+        FROM tb_config
+        <where>
+            <if test="env != null">
+                and env = #{env, jdbcType=VARCHAR}
+            </if>
+            <if test="systemName != null">
+                and system_name = #{systemName, jdbcType=INTEGER}
+            </if>
+            <if test="confFileName != null">
+                and conf_file_name = #{confFileName, jdbcType=VARCHAR}
+            </if>
+            <if test="key != null">
+                and key = #{key, jdbcType=VARCHAR}
+            </if>
+            <if test="status != null">
+                and status = #{status, jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+    <!--分页查询配置信息-->
+    <select id="queryConfigByPage" resultMap="result">
+        SELECT
+        <include refid="baseSelectSql"/>
+        FROM tb_config
+        <where>
+            <if test="env != null">
+                and env = #{env, jdbcType=VARCHAR}
+            </if>
+            <if test="systemName != null">
+                and system_name = #{systemName, jdbcType=INTEGER}
+            </if>
+            <if test="confFileName != null">
+                and conf_file_name = #{confFileName, jdbcType=VARCHAR}
+            </if>
+            <if test="key != null">
+                and key = #{key, jdbcType=VARCHAR}
+            </if>
+            <if test="status != null">
+                and status = #{status, jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+    <!--保存配置信息-->
+    <insert id="saveConfig" parameterType="com.ocean.domain.Config">
+        INSERT INTO tb_config (env, system_name, conf_file_name, key, value, desc, gmt_create, gmt_modify)
+        VALUES (#{env, jdbcType=VARCHAR}, #{systemName, jdbcType=VARCHAR}, #{confFileName, jdbcType=VARCHAR},
+                #{key, jdbcType=VARCHAR}, #{value, jdbcType=VARCHAR}, #{desc, jdbcType=VARCHAR}, now(), now())
+    </insert>
+
+</mapper>

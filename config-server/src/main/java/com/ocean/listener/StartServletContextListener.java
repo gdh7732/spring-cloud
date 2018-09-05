@@ -37,7 +37,7 @@ public class StartServletContextListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent event) {
 		//初始化默认管理员账号
 		if (!userService.exists("root")) {
-			userService.saveUser(User.builder().username("root").pass("root123456").envs(EnvConstants.ENVS).build());
+//			userService.saveUser(User.builder().username("root").pass("root123456").envs(EnvConstants.ENVS).build());
 		}
 		
 		System.setProperty("zookeeper.url", zkUrl);

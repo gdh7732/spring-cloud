@@ -20,7 +20,7 @@ public class UpdateLogController {
     private ConfigService configService;
 
     @GetMapping("/logs/{id}")
-    public String logPage(@PathVariable String id, Map<String, Object> model) {
+    public String logPage(@PathVariable Integer id, Map<String, Object> model) {
         model.put("conf", configService.queryConfig(id));
         model.put("logs", updateLogService.queryUpdateLogList(id));
         return "conf/logs";

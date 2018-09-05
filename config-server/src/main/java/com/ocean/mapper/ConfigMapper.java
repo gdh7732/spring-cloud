@@ -2,6 +2,8 @@ package com.ocean.mapper;
 
 import java.util.List;
 
+import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
+
 import com.github.pagehelper.Page;
 import com.ocean.domain.Config;
 
@@ -17,8 +19,9 @@ public interface ConfigMapper {
      * 保存配置信息
      *
      * @param config
+     * @return
      */
-    void saveConfig(Config config);
+    int saveConfig(Config config);
 
     /**
      * 查询配置信息
@@ -26,14 +29,15 @@ public interface ConfigMapper {
      * @param id
      * @return
      */
-    Config queryConfig(String id);
+    Config queryConfig(Integer id);
 
     /**
      * 移除配置信息
      *
      * @param id
+     * @return
      */
-    void removeConfig(String id);
+    int removeConfig(Integer id);
 
     /**
      * 分页查询配置信息

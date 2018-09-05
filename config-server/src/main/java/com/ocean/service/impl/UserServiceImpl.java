@@ -30,7 +30,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean exists(String username) {
-        return userMapper.exists(username);
+        int result = userMapper.exists(username);
+        return result > 0;
     }
 
 }

@@ -27,15 +27,16 @@ public interface UserMapper {
      * 创建用户
      *
      * @param user
+     * @return int
      */
-    void saveUser(User user);
+    int saveUser(User user);
 
     /**
      * 校验用户名
      *
      * @param userName
-     * @return
+     * @return int
      */
-    boolean exists(String userName);
+    int exists(String userName);
 
 }

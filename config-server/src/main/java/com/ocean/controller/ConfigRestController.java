@@ -110,9 +110,9 @@ public class ConfigRestController {
 	}
 	
 	@GetMapping("/rest/conf/{id}")
-	public ResponseData get(@PathVariable("id") String id) throws GlobalException {
+	public ResponseData get(@PathVariable("id") Integer id) throws GlobalException {
 		try {
-			if (StringUtils.isBlank(id)) {
+			if (null == id) {
 				throw new ParamException("id not null");
 			}
 			return ResponseData.ok(configService.queryConfig(id));
@@ -141,8 +141,8 @@ public class ConfigRestController {
 		if (StringUtils.isBlank(config.getDesc())) {
 			throw new ParamException("desc not null");
 		}
-		config.setCreateDate(new Date());
-		config.setModifyDate(new Date());
+		config.setGmtCreate(new Date());
+		config.setGmtModify(new Date());
 		configService.saveConfig(config);
 		return ResponseData.ok();
 	}
@@ -170,7 +170,7 @@ public class ConfigRestController {
 		if (StringUtils.isBlank(config.getDesc())) {
 			throw new ParamException("desc not null");
 		}
-		config.setModifyDate(new Date());
+		config.setGmtModify(new Date());
 		configService.saveConfig(config);
 		return ResponseData.ok();
 	}

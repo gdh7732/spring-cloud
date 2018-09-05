@@ -2,18 +2,18 @@ package com.ocean.model;
 
 public class NodeInfo {
 	// 配置ID
-	private String id;
+	private Integer id;
 	// 配置值
 	private String value;
 	// 配置描述
 	private String desc;
 	// 配置节点（192.11.111.11:9090）
 	private String node;
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

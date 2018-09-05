@@ -17,8 +17,9 @@ public interface UpdateLogMapper {
      * 保存更新记录
      *
      * @param log
+     * @return
      */
-    void saveUpdateLog(UpdateLog log);
+    int saveUpdateLog(UpdateLog log);
 
     /**
      * 查询更新记录
@@ -26,5 +27,5 @@ public interface UpdateLogMapper {
      * @param updateObjId
      * @return
      */
-    List<UpdateLog> queryUpdateLogList(String updateObjId);
+    List<UpdateLog> queryUpdateLogList(Integer updateObjId);
 }

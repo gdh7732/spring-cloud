@@ -29,12 +29,12 @@ public class ConfigServiceImpl implements ConfigService {
     }
 
     @Override
-    public Config queryConfig(String id) {
+    public Config queryConfig(Integer id) {
         return configMapper.queryConfig(id);
     }
 
     @Override
-    public void removeConfig(String id) {
+    public void removeConfig(Integer id) {
         configMapper.removeConfig(id);
     }
 

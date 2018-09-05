@@ -21,7 +21,7 @@ public class UpdateLogServiceImpl implements UpdateLogService {
     private UpdateLogMapper updateLogMapper;
 
     @Override
-    public List<UpdateLog> queryUpdateLogList(String updateObjId) {
+    public List<UpdateLog> queryUpdateLogList(Integer updateObjId) {
         return updateLogMapper.queryUpdateLogList(updateObjId);
     }
 

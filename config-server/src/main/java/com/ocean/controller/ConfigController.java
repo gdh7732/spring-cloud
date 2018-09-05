@@ -66,7 +66,9 @@ public class ConfigController {
         }
 
         if (envs.contains(config.getEnv())) {
-            if (config.getPage() == 0) config.setPage(1);
+            if (config.getPage() == 0) {
+                config.setPage(1);
+            }
             List<Config> list = configService.queryConfigByPage(config, config.getPage(), 20);
             List<ConfigModel> results = Lists.newArrayList();
             for (Config c : list) {
@@ -103,17 +105,17 @@ public class ConfigController {
                 Config config = configService.queryConfig(node.getId());
                 oldValue = config.getValue();
                 config.setValue(node.getValue());
-                config.setModifyDate(new Date());
+                config.setGmtModify(new Date());
                 configService.saveConfig(config);
 
                 //添加修改日志
-                UpdateLog log = UpdateLog.builder().updateObjId(node.getId())
-                        .updateTime(new Date())
-                        .oldValue(oldValue)
-                        .newValue(node.getValue())
-                        .username(request.getSession().getAttribute("login_user_name").toString())
-                        .updateDesc(node.getDesc()).build();
-                updateLogService.saveUpdateLog(log);
+//                UpdateLog log = UpdateLog.builder().updateObjId(node.getId())
+//                        .updateTime(new Date())
+//                        .oldValue(oldValue)
+//                        .newValue(node.getValue())
+//                        .username(request.getSession().getAttribute("login_user_name").toString())
+//                        .updateDesc(node.getDesc()).build();
+//                updateLogService.saveUpdateLog(log);
                 // 值是根据推送节点传来的，只需要修改一次即可，推送就根据节点数量来
                 break;
             }
@@ -144,7 +146,7 @@ public class ConfigController {
      */
     @PostMapping("/conf/remove")
     @ResponseBody
-    public Object remove(String id) {
+    public Object remove(Integer id) {
         configService.removeConfig(id);
         return "success";
     }
