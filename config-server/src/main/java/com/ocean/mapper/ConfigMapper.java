@@ -1,9 +1,10 @@
 package com.ocean.mapper;
 
-import java.util.List;
-
 import com.github.pagehelper.Page;
 import com.ocean.domain.Config;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * 配置信息Mapper
@@ -11,6 +12,7 @@ import com.ocean.domain.Config;
  * @author guodahai
  * @version 2018/9/5 13:53
  */
+@Mapper
 public interface ConfigMapper {
 
     /**

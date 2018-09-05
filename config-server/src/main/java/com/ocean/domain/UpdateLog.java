@@ -1,9 +1,9 @@
 package com.ocean.domain;
 
-import java.util.Date;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Date;
 
 /**
  * 修改日志记录
@@ -40,4 +40,14 @@ public class UpdateLog {
 
     private Date gmtModify;
 
+    public UpdateLog() {
+    }
+
+    public UpdateLog(String username, Integer updateObjId, String oldValue, String newValue, String updateDesc) {
+        this.username = username;
+        this.updateObjId = updateObjId;
+        this.oldValue = oldValue;
+        this.newValue = newValue;
+        this.updateDesc = updateDesc;
+    }
 }

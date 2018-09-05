@@ -1,10 +1,8 @@
 //package com.ocean.listener;
 //
-//import com.ocean.domain.User;
-//import com.ocean.common.EnvConstants;
+//import com.ocean.service.UserService;
 //import com.ocean.util.CommonUtil;
 //import com.ocean.zk.ZkClient;
-//import com.ocean.service.UserService;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.beans.factory.annotation.Value;
 //
@@ -17,7 +15,7 @@
 // * @author yinjihuan
 // *
 // */
-////@WebListener
+//@WebListener
 //public class StartServletContextListener implements ServletContextListener {
 //	@Value("${zookeeper.url}")
 //	private String zkUrl;

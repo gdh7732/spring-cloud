@@ -1,18 +1,13 @@
 package com.ocean.controller;
 
-import com.ocean.common.LoginUserInfoUtils;
-import com.ocean.common.ResponseData;
-import com.ocean.domain.Config;
-import com.ocean.domain.UpdateLog;
 import com.google.common.collect.Lists;
+import com.ocean.common.*;
+import com.ocean.domain.Config;
 import com.ocean.model.ConfigModel;
 import com.ocean.model.NodeInfo;
-import com.ocean.common.Constant;
-import com.ocean.common.EnvConstants;
-import com.ocean.util.CommonUtil;
 import com.ocean.service.ConfigService;
+import com.ocean.service.NodeService;
 import com.ocean.service.UpdateLogService;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -38,9 +31,10 @@ public class ConfigController {
 
     @Autowired
     private ConfigService configService;
-
     @Autowired
     private UpdateLogService updateLogService;
+    @Autowired
+    private NodeService nodeService;
 
     /**
      * 配置列表页面
@@ -51,7 +45,7 @@ public class ConfigController {
      * @author yinjihuan
      */
     @GetMapping("/")
-    public Object index(ConfigModel config, Map<String, Object> model, HttpServletRequest request) {
+    public String index(ConfigModel config, Map<String, Object> model, HttpServletRequest request) {
         List<String> envs = LoginUserInfoUtils.getLoginUserEvns(request);
         if (StringUtils.isBlank(config.getEnv())) {
             if (envs.contains(EnvConstants.DEV)) {
@@ -98,43 +92,18 @@ public class ConfigController {
      */
     @PostMapping("/conf/update")
     @ResponseBody
-    public Object update(@RequestBody List<NodeInfo> nodes, HttpServletRequest request) {
-        if (nodes != null) {
-            for (NodeInfo node : nodes) {
-                Object oldValue;
-                Config config = configService.queryConfig(node.getId());
-                oldValue = config.getValue();
-                config.setValue(node.getValue());
-                config.setGmtModify(new Date());
-                configService.saveConfig(config);
-
-                //添加修改日志
-//                UpdateLog log = UpdateLog.builder().updateObjId(node.getId())
-//                        .updateTime(new Date())
-//                        .oldValue(oldValue)
-//                        .newValue(node.getValue())
-//                        .username(request.getSession().getAttribute("login_user_name").toString())
-//                        .updateDesc(node.getDesc()).build();
-//                updateLogService.saveUpdateLog(log);
-                // 值是根据推送节点传来的，只需要修改一次即可，推送就根据节点数量来
-                break;
+    public ResponseResult<Boolean> update(@RequestBody List<NodeInfo> nodes, HttpServletRequest request) {
+        return new AbstractControllerExecutor<Boolean>() {
+            @Override
+            public void checkParam() throws ServiceException {
+                ParamCheckUtil.emptyListCheck(nodes);
             }
 
-            for (NodeInfo node : nodes) {
-                Config config = configService.queryConfig(node.getId());
-                //修改zk中的节点的值，告诉客户端值有修改
-                List<String> clients = CommonUtil.getZkClient().getClientServers(config.getEnv(), config.getSystemName());
-                for (String client : clients) {
-                    if (client.split("&")[0].equals(node.getNode()) && client.split("&")[1].equals(config.getConfFileName())) {
-                        CommonUtil.getZkClient().setValue(
-                                CommonUtil.buildPath(Constant.ZK_ROOT_PATH, config.getEnv(),
-                                        config.getSystemName(), client), config.getValue());
-                    }
-                }
+            @Override
+            public Boolean executeService() throws ServiceException {
+                return nodeService.update(nodes);
             }
-        }
-
-        return ResponseData.ok();
+        }.execute(nodes);
     }
 
     /**
@@ -146,7 +115,7 @@ public class ConfigController {
      */
     @PostMapping("/conf/remove")
     @ResponseBody
-    public Object remove(Integer id) {
+    public String remove(Integer id) {
         configService.removeConfig(id);
         return "success";
     }
@@ -159,21 +128,17 @@ public class ConfigController {
      */
     @PostMapping("/conf/push")
     @ResponseBody
-    public Object pushConf(@RequestBody List<NodeInfo> nodes) {
-        if (nodes != null) {
-            for (NodeInfo node : nodes) {
-                Config config = configService.queryConfig(node.getId());
-                //修改zk中的节点的值，告诉客户端值有修改
-                List<String> clients = CommonUtil.getZkClient().getClientServers(config.getEnv(), config.getSystemName());
-                for (String client : clients) {
-                    if (client.split("&")[0].equals(node.getNode()) && client.split("&")[1].equals(config.getConfFileName())) {
-                        CommonUtil.getZkClient().setValue(
-                                CommonUtil.buildPath(Constant.ZK_ROOT_PATH, config.getEnv(),
-                                        config.getSystemName(), client), config.getValue());
-                    }
-                }
+    public ResponseResult<Boolean> pushConf(@RequestBody List<NodeInfo> nodes) {
+        return new AbstractControllerExecutor<Boolean>() {
+            @Override
+            public void checkParam() throws ServiceException {
+                ParamCheckUtil.emptyListCheck(nodes);
             }
-        }
-        return ResponseData.ok();
+
+            @Override
+            public Boolean executeService() throws ServiceException {
+                return nodeService.pushConf(nodes);
+            }
+        }.execute(nodes);
     }
 }

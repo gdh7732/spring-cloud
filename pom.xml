@@ -33,7 +33,6 @@
     <properties>
         <spring.cloud.version>Dalston.SR1</spring.cloud.version>
         <common.version>0.0.1-SNAPSHOT</common.version>
-        <maven-plugin-version>3.3.9</maven-plugin-version>
         <swagger-ui-version>1.7.0.RELEASE</swagger-ui-version>
     </properties>
 
@@ -96,7 +95,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-plugin-version}</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>

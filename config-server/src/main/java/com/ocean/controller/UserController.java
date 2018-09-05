@@ -22,12 +22,12 @@ public class UserController {
 	private UserService userService;
 	
 	@GetMapping("/user/login")
-	public Object login() {
+	public String login() {
 		return "user/login";
 	}
 	
 	@PostMapping("/user/login")
-	public Object login(String username, String pass, Map<String, String> model, HttpServletRequest request) {
+	public String login(String username, String pass, Map<String, String> model, HttpServletRequest request) {
 		User user = userService.queryUser(username, pass);
 		if (user == null) {
 			model.put("msg", "账号或者密码错误");
@@ -39,7 +39,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/user/logout")
-	public Object logout(HttpServletRequest request) {
+	public String logout(HttpServletRequest request) {
 		request.getSession().invalidate();
 		return "redirect:/user/login";
 	}

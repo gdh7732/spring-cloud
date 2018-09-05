@@ -12,6 +12,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 @SpringBootApplication
 @ServletComponentScan
 public class App {
+
 	public static void main(String[] args) {
 		//将参数设置到环境变量中
 		if (args != null) {

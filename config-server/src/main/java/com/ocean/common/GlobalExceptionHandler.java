@@ -1,22 +1,20 @@
 package com.ocean.common;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-//@ControllerAdvice
+@ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(value = GlobalException.class)
+    @ExceptionHandler(value = ServiceException.class)
     @ResponseBody
-    public ResponseData jsonErrorHandler(HttpServletRequest req, GlobalException e) throws Exception {
-        ResponseData r = new ResponseData();
-        r.setMessage(e.getMessage());
-        r.setCode(e.getCode());
-        r.setData(null);
-        r.setStatus(false);
-        return r;
+    public ResponseResult jsonErrorHandler(ServiceException e) throws Exception {
+        ResponseResult result = new ResponseResult();
+        result.setErrorCode(e.getErrorEnum().getCode());
+        result.setErrorMessage(e.getMessage());
+        result.setData(null);
+        result.setSuccess(false);
+        return result;
     }
 }

@@ -1,16 +1,14 @@
 package com.ocean.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.github.pagehelper.PageHelper;
 import com.google.common.collect.Lists;
 import com.ocean.domain.Config;
 import com.ocean.mapper.ConfigMapper;
 import com.ocean.service.ConfigService;
-import com.ocean.util.CommonUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 配置信息Service
@@ -24,8 +22,9 @@ public class ConfigServiceImpl implements ConfigService {
     private ConfigMapper configMapper;
 
     @Override
-    public void saveConfig(Config config) {
-        configMapper.saveConfig(config);
+    public Boolean saveConfig(Config config) {
+        int result = configMapper.saveConfig(config);
+        return result > 0;
     }
 
     @Override
@@ -52,7 +51,8 @@ public class ConfigServiceImpl implements ConfigService {
     @Override
     public List<String> getNodes(String env, String systemName, String fileName) {
         List<String> nodes = Lists.newArrayList();
-        List<String> clients = CommonUtil.getZkClient().getClientServers(env, systemName);
+//        List<String> clients = CommonUtil.getZkClient().getClientServers(env, systemName);
+        List<String> clients = Lists.newArrayList();
         for (String client : clients) {
             if (client.split("&")[1].equals(fileName)) {
                 nodes.add(client.split("&")[0]);

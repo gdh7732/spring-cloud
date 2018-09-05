@@ -1,8 +1,8 @@
 package com.ocean.service;
 
-import java.util.List;
-
 import com.ocean.domain.Config;
+
+import java.util.List;
 
 /**
  * 配置信息Service
@@ -16,7 +16,7 @@ public interface ConfigService {
      *
      * @param config
      */
-    void saveConfig(Config config);
+    Boolean saveConfig(Config config);
 
     /**
      * 查询配置信息

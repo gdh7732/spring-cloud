@@ -20,7 +20,7 @@
     <select id="queryUpdateLogList" resultMap="result">
         SELECT
         <include refid="baseSelectSql"/>
-        FROM tb_update_log
+        FROM tb_config_log
         <where>
             <if test="username != null">
                 and username = #{username, jdbcType=VARCHAR}
@@ -42,7 +42,7 @@
 
     <!--保存更新记录-->
     <insert id="saveUpdateLog" parameterType="com.ocean.domain.Config">
-        INSERT INTO tb_update_log (username, update_obj_id, old_value, new_value, update_desc, gmt_create)
+        INSERT INTO tb_config_log (username, update_obj_id, old_value, new_value, update_desc, gmt_create)
         VALUES (#{username, jdbcType=VARCHAR}, #{updateObjId, jdbcType=INTEGER}, #{oldValue, jdbcType=VARCHAR},
                 #{newValue, jdbcType=VARCHAR}, #{updateDesc, jdbcType=VARCHAR}, now())
     </insert>
