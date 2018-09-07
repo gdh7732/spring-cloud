@@ -28,6 +28,7 @@
         <module>hystrix-dashboard</module>
         <module>api-gateway</module>
         <module>cloud-stream</module>
+        <module>mybatis</module>
     </modules>
 
     <properties>
