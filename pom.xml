@@ -29,6 +29,9 @@
         <module>api-gateway</module>
         <module>cloud-stream</module>
         <module>mybatis</module>
+        <module>cloud-config-server</module>
+        <module>cloud-zipkin-ui</module>
+        <module>cloud-simple-service</module>
     </modules>
 
     <properties>
