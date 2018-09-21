@@ -30,14 +30,15 @@
         <module>cloud-stream</module>
         <module>mybatis</module>
         <module>cloud-config-server</module>
-        <module>cloud-zipkin-ui</module>
-        <module>cloud-simple-service</module>
+        <module>zipkin-ui</module>
+        <module>simple-service</module>
     </modules>
 
     <properties>
         <spring.cloud.version>Dalston.SR1</spring.cloud.version>
         <common.version>0.0.1-SNAPSHOT</common.version>
         <swagger-ui-version>1.7.0.RELEASE</swagger-ui-version>
+        <docker.image.prefix>cloud-vue</docker.image.prefix>
     </properties>
 
     <dependencies>

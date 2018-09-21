@@ -3,14 +3,14 @@ eureka:
         serviceUrl:
             defaultZone: http://eureka.didispace.com/eureka/
 server:
-    port: 1111
+    port: 8011
 spring:
     application:
-        name: cloud-config-server
+        name: config-server
     cloud:
         config:
             label: master
             server:
                 git:
-                    uri: https://github.com/gdh7732/cloud-vue-parent.git
+                    uri: https://github.com/gdh7732/spring-cloud.git
                     search-paths: repo

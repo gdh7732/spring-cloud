@@ -1,10 +1,3 @@
-/*
- * Copyright 2012-2020 the original author or authors.
- * Licensed under the Apache License, Version 2.0 (the "License");
- * @author lzhoumail@126.com/zhouli
- * Git http://git.oschina.net/zhou666/spring-cloud-7simple
- */
-
 package cloud.zipkin;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,14 +17,14 @@ import zipkin.server.EnableZipkinServer;
 @EnableZipkinServer
 public class ZipkinServerApplication {
 
-	public static void main(String[] args) throws Exception {
-		new SpringApplicationBuilder(ZipkinServerApplication.class).web(true).run(args);
-	}
-	
-	@LoadBalanced
-	@Bean
-	RestTemplate restTemplate() {
-		return new RestTemplate();
-	}
+    public static void main(String[] args) throws Exception {
+        new SpringApplicationBuilder(ZipkinServerApplication.class).web(true).run(args);
+    }
+
+    @LoadBalanced
+    @Bean
+    RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 
 }
