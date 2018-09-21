@@ -7,13 +7,12 @@
     <artifactId>common</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-
     <name>common</name>
     <description>公共模块</description>
 
     <parent>
         <groupId>com.ocean</groupId>
-        <artifactId>cloud</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <artifactId>spring.cloud</artifactId>
+        <version>1.0.0</version>
     </parent>
 </project>
