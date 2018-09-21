@@ -13,7 +13,7 @@
 
     <parent>
         <groupId>com.ocean</groupId>
-        <artifactId>spring.cloud</artifactId>
+        <artifactId>spring-cloud</artifactId>
         <version>1.0.0</version>
     </parent>
 
