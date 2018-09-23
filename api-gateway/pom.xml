@@ -27,6 +27,11 @@
             <groupId>com.spring4all</groupId>
             <artifactId>swagger-spring-boot-starter</artifactId>
         </dependency>
+        <!--配置中心相关-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
