@@ -17,9 +17,6 @@
         <relativePath/>
     </parent>
     <modules>
-        <module>eureka-server</module>
-        <module>eureka-server-master</module>
-        <module>eureka-server-slave</module>
         <module>common</module>
         <module>service-provider</module>
         <module>service-customer</module>
