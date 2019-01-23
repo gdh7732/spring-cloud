@@ -18,20 +18,19 @@
     </parent>
     <modules>
         <module>common</module>
+        <module>common-api</module>
         <module>service-provider</module>
         <module>service-customer</module>
-        <module>service-simple</module>
-        <module>config-server</module>
         <module>hystrix-dashboard</module>
         <module>api-gateway</module>
         <module>cloud-stream</module>
-        <module>mybatis-generator</module>
         <module>zipkin-ui</module>
     </modules>
 
     <properties>
         <spring.cloud.version>Dalston.SR1</spring.cloud.version>
         <common.version>0.0.1-SNAPSHOT</common.version>
+        <common.api.version>1.0.0-SNAPSHOT</common.api.version>
         <swagger-ui-version>1.7.0.RELEASE</swagger-ui-version>
         <docker.image.prefix>cloud-vue</docker.image.prefix>
     </properties>
@@ -64,7 +63,6 @@
 
     <dependencyManagement>
         <dependencies>
-
             <!-- Spring Cloud -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
@@ -73,12 +71,17 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
-            <!--础模块-->
+            <!--基础模块-->
             <dependency>
                 <groupId>com.ocean</groupId>
                 <artifactId>common</artifactId>
                 <version>${common.version}</version>
+            </dependency>
+            <!--api-->
+            <dependency>
+                <groupId>com.ocean</groupId>
+                <artifactId>common-api</artifactId>
+                <version>${common.api.version}</version>
             </dependency>
 
             <!--swagger-ui-->

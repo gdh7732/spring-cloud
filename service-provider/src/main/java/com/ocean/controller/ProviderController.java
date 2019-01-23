@@ -3,10 +3,10 @@ package com.ocean.controller;
 import com.ocean.common.AbstractControllerExecutor;
 import com.ocean.common.ResponseResult;
 import com.ocean.common.ServiceException;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 提供服务案例
@@ -34,5 +34,10 @@ public class ProviderController {
                 return message;
             }
         }.execute(message);
+    }
+
+    @PostMapping(value = "/uploadFile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String handleFileUpload(@RequestPart(value = "file") MultipartFile file) {
+        return file.getName();
     }
 }

@@ -1,11 +1,6 @@
 package com.ocean.controller;
 
-import com.ocean.api.ProviderClient;
-import com.ocean.common.AbstractControllerExecutor;
-import com.ocean.common.ErrorCodeEnum;
-import com.ocean.common.ResponseResult;
-import com.ocean.common.ServiceException;
-import com.ocean.service.CustomerService;
+import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +8,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
+import com.ocean.common.AbstractControllerExecutor;
+import com.ocean.common.ErrorCodeEnum;
+import com.ocean.common.ResponseResult;
+import com.ocean.common.ServiceException;
+import com.ocean.service.CustomerService;
 
 /**
  * 消费案例

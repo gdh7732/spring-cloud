@@ -1,8 +1,9 @@
 package com.ocean.service.impl;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.ocean.api.ProviderClient;
+import com.ocean.feign.ProviderApi;
 import com.ocean.service.CustomerService;
+
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,10 +16,11 @@ import javax.annotation.Resource;
 public class CustomerServiceImpl implements CustomerService {
 
     @Resource
-    private ProviderClient providerClient;
+    private ProviderApi providerApi;
 
     /**
      * 获取message
+     * hystrixCommand 服务降级
      *
      * @param message
      * @return
@@ -26,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
     @HystrixCommand(fallbackMethod = "fallback")
     @Override
     public String getMessage(String message) {
-        return providerClient.getMessage(message);
+        return providerApi.getMessage(message);
     }
 
     public String fallback(String message) {
